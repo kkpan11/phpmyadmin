@@ -15,7 +15,8 @@ use PhpMyAdmin\Bookmarks\BookmarkRepository;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Console;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Current;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Error\ErrorHandler;
 use PhpMyAdmin\Footer;
 use PhpMyAdmin\Header;
@@ -47,7 +48,7 @@ class ResponseRenderer extends \PhpMyAdmin\ResponseRenderer
      */
     public function __construct()
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         $config = Config::getInstance();
         $config->selectedServer['pmadb'] = 'phpmyadmin';
         $template = new Template($config);

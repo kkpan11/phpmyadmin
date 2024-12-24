@@ -9,7 +9,7 @@ use PhpMyAdmin\Config;
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Container\ContainerBuilder;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Dbal\DbiExtension;
 use PhpMyAdmin\I18n\LanguageManager;
 use PhpMyAdmin\SqlParser\Translator;
@@ -77,6 +77,8 @@ abstract class AbstractTestCase extends TestCase
         Current::$database = '';
         Current::$table = '';
         Current::$sqlQuery = '';
+        Current::$message = null;
+        Current::$lang = 'en';
 
         // Config before DBI
         $this->setGlobalConfig();
@@ -115,7 +117,7 @@ abstract class AbstractTestCase extends TestCase
 
     protected function setLanguage(string $code = 'en'): void
     {
-        $GLOBALS['lang'] = $code;
+        Current::$lang = $code;
         $languageManager = LanguageManager::getInstance();
         /* Ensure default language is active */
         $languageEn = $languageManager->getLanguage($code);

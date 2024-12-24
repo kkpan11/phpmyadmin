@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhpMyAdmin\Tests\Plugins\Import;
 
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\File;
 use PhpMyAdmin\Import\ImportSettings;
 use PhpMyAdmin\Plugins\Import\ImportShp;
@@ -74,10 +74,10 @@ class ImportShpTest extends AbstractTestCase
         $importHandle->setDecompressContent(true);
         $importHandle->open();
 
-        $GLOBALS['message'] = '';
+        Current::$message = null;
         $GLOBALS['error'] = false;
         $this->object->doImport($importHandle);
-        self::assertSame('', $GLOBALS['message']);
+        self::assertNull(Current::$message);
         self::assertFalse($GLOBALS['error']);
     }
 

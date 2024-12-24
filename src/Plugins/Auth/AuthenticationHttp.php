@@ -11,7 +11,8 @@ namespace PhpMyAdmin\Plugins\Auth;
 use Fig\Http\Message\StatusCodeInterface;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Core;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Current;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Exceptions\AuthenticationFailure;
 use PhpMyAdmin\Http\Response;
 use PhpMyAdmin\Message;
@@ -184,7 +185,7 @@ class AuthenticationHttp extends AuthenticationPlugin
         if ($error && $GLOBALS['errno'] != 1045) {
             $responseRenderer = ResponseRenderer::getInstance();
             $responseRenderer->addHTML($this->template->render('error/generic', [
-                'lang' => $GLOBALS['lang'] ?? 'en',
+                'lang' => Current::$lang,
                 'error_message' => $error,
             ]));
 

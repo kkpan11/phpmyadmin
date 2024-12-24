@@ -6,7 +6,7 @@ namespace PhpMyAdmin\Plugins\Import;
 
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\File;
 use PhpMyAdmin\Http\ServerRequest;
 use PhpMyAdmin\Import\ImportSettings;
@@ -121,7 +121,7 @@ class ImportLdi extends AbstractImportCsv
 
         if (ImportSettings::$importFile === 'none' || $compression !== 'none' || ImportSettings::$charsetConversion) {
             // We handle only some kind of data!
-            $GLOBALS['message'] = Message::error(
+            Current::$message = Message::error(
                 __('This plugin does not support compressed imports!'),
             );
             $GLOBALS['error'] = true;

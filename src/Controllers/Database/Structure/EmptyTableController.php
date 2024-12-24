@@ -11,7 +11,7 @@ use PhpMyAdmin\ConfigStorage\RelationCleanup;
 use PhpMyAdmin\Controllers\Database\StructureController;
 use PhpMyAdmin\Controllers\InvocableController;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\FlashMessenger;
 use PhpMyAdmin\Http\Response;
 use PhpMyAdmin\Http\ServerRequest;
@@ -86,7 +86,7 @@ final class EmptyTableController implements InvocableController
 
         ForeignKey::handleDisableCheckCleanup($defaultFkCheckValue);
 
-        $GLOBALS['message'] = Message::success();
+        Current::$message = Message::success();
 
         unset($_POST['mult_btn']);
 

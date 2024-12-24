@@ -6,7 +6,7 @@ namespace PhpMyAdmin\Tests\Plugins\Export;
 
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Export\Export;
 use PhpMyAdmin\Plugins\Export\ExportCsv;
 use PhpMyAdmin\Properties\Options\Groups\OptionsPropertyMainGroup;
@@ -42,7 +42,7 @@ class ExportCsvTest extends AbstractTestCase
         DatabaseInterface::$instance = $dbi;
         Current::$database = '';
         Current::$table = '';
-        $GLOBALS['lang'] = '';
+        Current::$lang = '';
         $GLOBALS['csv_enclosed'] = null;
         $GLOBALS['csv_separator'] = null;
         $GLOBALS['save_filename'] = null;

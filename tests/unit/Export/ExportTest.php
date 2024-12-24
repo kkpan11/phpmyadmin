@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Tests\Export;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Export\Export;
 use PhpMyAdmin\FlashMessenger;
 use PhpMyAdmin\Identifiers\DatabaseName;
@@ -228,7 +228,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForServerExportWithError(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         $_SESSION = [];
         $dbi = $this->createDatabaseInterface();
@@ -243,7 +243,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForServerExportWithSuccess(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         $_SESSION = [];
         $dbi = $this->createDatabaseInterface();
@@ -258,7 +258,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForDatabaseExportWithError(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         Current::$database = 'test_db';
         $_SESSION = [];
@@ -274,7 +274,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForDatabaseExportWithSuccess(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         Current::$database = 'test_db';
         $_SESSION = [];
@@ -290,7 +290,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForTableExportWithError(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         Current::$database = 'test_db';
         Current::$table = 'test_table';
@@ -310,7 +310,7 @@ SQL;
 
     public function testGetPageLocationAndSaveMessageForTableExportWithSuccess(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$server = 2;
         Current::$database = 'test_db';
         Current::$table = 'test_table';

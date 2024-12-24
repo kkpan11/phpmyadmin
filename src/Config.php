@@ -8,6 +8,7 @@ use PhpMyAdmin\Config\Settings;
 use PhpMyAdmin\Config\Settings\Server;
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Dbal\ConnectionType;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Exceptions\ConfigException;
 use PhpMyAdmin\I18n\LanguageManager;
 use PhpMyAdmin\Routing\Routing;
@@ -487,11 +488,11 @@ class Config
         if ($this->issetCookie('pma_lang') || isset($_POST['lang'])) {
             if (
                 (! isset($configData['lang'])
-                && $GLOBALS['lang'] !== 'en')
+                && Current::$lang !== 'en')
                 || isset($configData['lang'])
-                && $GLOBALS['lang'] != $configData['lang']
+                && Current::$lang !== $configData['lang']
             ) {
-                $this->setUserValue(null, 'lang', $GLOBALS['lang'], 'en');
+                $this->setUserValue(null, 'lang', Current::$lang, 'en');
             }
         } elseif (isset($configData['lang'])) {
             $languageManager = LanguageManager::getInstance();

@@ -6,8 +6,8 @@ namespace PhpMyAdmin\Table;
 
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
 use PhpMyAdmin\Dbal\ConnectionType;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Message;
 use PhpMyAdmin\Plugins;
 use PhpMyAdmin\Plugins\Export\ExportSql;
@@ -51,7 +51,7 @@ class TableMover
         if ($what === MoveScope::Move) {
             $tbl = new Table($sourceTable, $sourceDb, $this->dbi);
             if ($tbl->rename($targetTable, $targetDb)) {
-                $GLOBALS['message'] = $tbl->getLastMessage();
+                Current::$message = Message::success($tbl->getLastMessage());
 
                 return true;
             }
@@ -59,7 +59,7 @@ class TableMover
 
         $missingDatabaseMessage = $this->checkWhetherDatabasesExist($sourceDb, $targetDb);
         if ($missingDatabaseMessage !== null) {
-            $GLOBALS['message'] = $missingDatabaseMessage;
+            Current::$message = $missingDatabaseMessage;
 
             return false;
         }

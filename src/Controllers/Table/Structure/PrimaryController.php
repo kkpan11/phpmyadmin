@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Controllers\Table\Structure;
 use PhpMyAdmin\Controllers\InvocableController;
 use PhpMyAdmin\Controllers\Table\StructureController;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\DbTableExists;
 use PhpMyAdmin\Http\Response;
 use PhpMyAdmin\Http\ServerRequest;
@@ -34,8 +34,6 @@ final class PrimaryController implements InvocableController
 
     public function __invoke(ServerRequest $request): Response
     {
-        $GLOBALS['message'] ??= null;
-
         /** @var string[]|null $selected */
         $selected = $request->getParsedBodyParam('selected_fld', $request->getParsedBodyParam('selected'));
 
@@ -118,12 +116,12 @@ final class PrimaryController implements InvocableController
             $result = $this->dbi->tryQuery(Current::$sqlQuery);
 
             if (! $result) {
-                $GLOBALS['message'] = Message::error($this->dbi->getError());
+                Current::$message = Message::error($this->dbi->getError());
             }
         }
 
-        if (empty($GLOBALS['message'])) {
-            $GLOBALS['message'] = Message::success();
+        if (Current::$message === null) {
+            Current::$message = Message::success();
         }
 
         return ($this->structureController)($request);

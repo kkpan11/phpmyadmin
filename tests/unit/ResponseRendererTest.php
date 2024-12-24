@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Tests;
 use Fig\Http\Message\StatusCodeInterface;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Header;
 use PhpMyAdmin\Html\MySQLDocumentation;
 use PhpMyAdmin\Message;
@@ -29,7 +29,7 @@ final class ResponseRendererTest extends AbstractTestCase
 
         DatabaseInterface::$instance = $this->createDatabaseInterface();
 
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
     }
 
     public function testSetAjax(): void
@@ -89,6 +89,7 @@ final class ResponseRendererTest extends AbstractTestCase
 
         $_SERVER['SCRIPT_NAME'] = 'index.php';
         Current::$server = 0;
+        Current::$message = null;
 
         $responseRenderer = ResponseRenderer::getInstance();
         $responseRenderer->setAjax(false);
@@ -158,6 +159,7 @@ final class ResponseRendererTest extends AbstractTestCase
 
         $_SERVER['SCRIPT_NAME'] = 'index.php';
         Current::$server = 0;
+        Current::$message = null;
 
         $responseRenderer = ResponseRenderer::getInstance();
         $responseRenderer->setAjax(true);

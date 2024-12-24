@@ -8,7 +8,7 @@ use Fig\Http\Message\StatusCodeInterface;
 use PhpMyAdmin\Controllers\Table\GisVisualizationController;
 use PhpMyAdmin\Core;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\DbTableExists;
 use PhpMyAdmin\Http\Factory\ResponseFactory;
 use PhpMyAdmin\Http\Factory\ServerRequestFactory;
@@ -29,7 +29,7 @@ class GisVisualizationControllerTest extends AbstractTestCase
     public function testGisVisualizationController(): void
     {
         Current::$server = 2;
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$database = 'test_db';
         Current::$table = 'test_table';
         $_GET['sql_query'] = null;

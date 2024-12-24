@@ -6,7 +6,8 @@ namespace PhpMyAdmin\Tests\Error;
 
 use Exception;
 use PhpMyAdmin\Config;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Current;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Error\Error;
 use PhpMyAdmin\Error\ErrorHandler;
 use PhpMyAdmin\Exceptions\ExitException;
@@ -45,7 +46,7 @@ class ErrorHandlerTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         DatabaseInterface::$instance = $this->createDatabaseInterface();
         $this->object = new ErrorHandler();
         $_SESSION['errors'] = [];
@@ -257,7 +258,7 @@ class ErrorHandlerTest extends AbstractTestCase
 
     public function testHandleExceptionForDevEnv(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Config::getInstance()->set('environment', 'development');
         $errorHandler = new ErrorHandler();
         self::assertSame([], $errorHandler->getCurrentErrors());
@@ -280,7 +281,7 @@ class ErrorHandlerTest extends AbstractTestCase
 
     public function testHandleExceptionForProdEnv(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Config::getInstance()->set('environment', 'production');
         $errorHandler = new ErrorHandler();
         self::assertSame([], $errorHandler->getCurrentErrors());
@@ -302,7 +303,7 @@ class ErrorHandlerTest extends AbstractTestCase
 
     public function testAddErrorWithFatalError(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Config::getInstance()->set('environment', 'production');
         $errorHandler = new ErrorHandler();
         try {

@@ -9,8 +9,8 @@ use PhpMyAdmin\ColumnFull;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Config\Settings\Server;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
 use PhpMyAdmin\Dbal\ConnectionType;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Dbal\DbiExtension;
 use PhpMyAdmin\Dbal\ResultInterface;
 use PhpMyAdmin\Dbal\Statement;
@@ -44,7 +44,7 @@ class DatabaseInterfaceTest extends AbstractTestCase
     {
         parent::tearDown();
 
-        unset($GLOBALS['lang']);
+        Current::$lang = '';
         unset(Config::getInstance()->selectedServer['SessionTimeZone']);
         Context::load();
     }
@@ -175,7 +175,7 @@ class DatabaseInterfaceTest extends AbstractTestCase
      */
     public function testPostConnectShouldNotCallSetVersionIfNoVersion(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         LanguageManager::getInstance()->availableLanguages();
 
         $mock = $this->getMockBuilder(DatabaseInterface::class)
@@ -198,7 +198,7 @@ class DatabaseInterfaceTest extends AbstractTestCase
      */
     public function testPostConnectShouldCallSetVersionOnce(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         $versionQueryResult = [
             '@@version' => '10.20.7-MariaDB-1:10.9.3+maria~ubu2204',
             '@@version_comment' => 'mariadb.org binary distribution',
@@ -236,7 +236,7 @@ class DatabaseInterfaceTest extends AbstractTestCase
         bool $isMariaDb,
         bool $isPercona,
     ): void {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         LanguageManager::getInstance()->availableLanguages();
 
         $mock = $this->getMockBuilder(DatabaseInterface::class)

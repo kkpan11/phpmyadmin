@@ -6,10 +6,11 @@ namespace PhpMyAdmin\Tests\Plugins\Import;
 
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\File;
 use PhpMyAdmin\Http\Factory\ServerRequestFactory;
 use PhpMyAdmin\Import\ImportSettings;
+use PhpMyAdmin\Message;
 use PhpMyAdmin\Plugins\Import\ImportLdi;
 use PhpMyAdmin\Tests\AbstractTestCase;
 use PhpMyAdmin\Tests\Stubs\DummyResult;
@@ -144,9 +145,10 @@ class ImportLdiTest extends AbstractTestCase
         (new ImportLdi())->doImport();
 
         // We handle only some kind of data!
+        self::assertInstanceOf(Message::class, Current::$message);
         self::assertStringContainsString(
             __('This plugin does not support compressed imports!'),
-            $GLOBALS['message']->__toString(),
+            Current::$message->__toString(),
         );
 
         self::assertTrue($GLOBALS['error']);

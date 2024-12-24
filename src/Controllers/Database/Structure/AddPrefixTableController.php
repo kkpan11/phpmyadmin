@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Controllers\Database\Structure;
 use PhpMyAdmin\Controllers\Database\StructureController;
 use PhpMyAdmin\Controllers\InvocableController;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Http\Response;
 use PhpMyAdmin\Http\ServerRequest;
 use PhpMyAdmin\Message;
@@ -38,7 +38,7 @@ final class AddPrefixTableController implements InvocableController
             $this->dbi->query($aQuery);
         }
 
-        $GLOBALS['message'] = Message::success();
+        Current::$message = Message::success();
 
         return ($this->structureController)($request);
     }

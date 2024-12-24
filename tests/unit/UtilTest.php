@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Tests;
 use DateTimeImmutable;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Http\ServerRequest;
 use PhpMyAdmin\MoTranslator\Loader;
 use PhpMyAdmin\SqlParser\Context;
@@ -1329,7 +1329,7 @@ SQL;
     #[DataProvider('dataProviderScriptNames')]
     public function testGetScriptNameForOption(string $target, string $location, string $finalLink): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         self::assertSame(
             $finalLink,
             Util::getScriptNameForOption($target, $location),

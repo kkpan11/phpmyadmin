@@ -9,7 +9,7 @@ use PhpMyAdmin\Config;
 use PhpMyAdmin\ConfigStorage\Relation;
 use PhpMyAdmin\Controllers\Operations\TableController;
 use PhpMyAdmin\Current;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\DbTableExists;
 use PhpMyAdmin\Http\Factory\ServerRequestFactory;
 use PhpMyAdmin\Operations;
@@ -40,7 +40,7 @@ class TableControllerTest extends AbstractTestCase
 
     public function testOperationsController(): void
     {
-        $GLOBALS['lang'] = 'en';
+        Current::$lang = 'en';
         Current::$database = 'test_db';
         Current::$table = 'test_table';
 

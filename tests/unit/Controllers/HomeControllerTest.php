@@ -7,7 +7,7 @@ namespace PhpMyAdmin\Tests\Controllers;
 use Fig\Http\Message\StatusCodeInterface;
 use PhpMyAdmin\Config;
 use PhpMyAdmin\Controllers\HomeController;
-use PhpMyAdmin\DatabaseInterface;
+use PhpMyAdmin\Dbal\DatabaseInterface;
 use PhpMyAdmin\Http\Factory\ResponseFactory;
 use PhpMyAdmin\Http\Factory\ServerRequestFactory;
 use PhpMyAdmin\ResponseRenderer;
@@ -32,7 +32,10 @@ final class HomeControllerTest extends AbstractTestCase
         $response = $controller($request);
 
         self::assertSame(StatusCodeInterface::STATUS_FOUND, $response->getStatusCode());
-        self::assertSame('./index.php?route=/database/structure&db=test_db', $response->getHeaderLine('Location'));
+        self::assertSame(
+            './index.php?route=/database/structure&db=test_db&lang=en',
+            $response->getHeaderLine('Location'),
+        );
         self::assertSame('', (string) $response->getBody());
     }
 
@@ -50,7 +53,10 @@ final class HomeControllerTest extends AbstractTestCase
         $response = $controller($request);
 
         self::assertSame(StatusCodeInterface::STATUS_FOUND, $response->getStatusCode());
-        self::assertSame('./index.php?route=/sql&db=test_db&table=test_table', $response->getHeaderLine('Location'));
+        self::assertSame(
+            './index.php?route=/sql&db=test_db&table=test_table&lang=en',
+            $response->getHeaderLine('Location'),
+        );
         self::assertSame('', (string) $response->getBody());
     }
 }
